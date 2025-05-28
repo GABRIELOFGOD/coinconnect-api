@@ -16,17 +16,20 @@
 
 
 # db.py
-import mysql.connector
+import pymysql
 import uuid
 from dotenv import load_dotenv
 import os
 
 def get_db_connection():
-    return mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME")
+    return pymysql.connect(
+        host=os.getenv('DB_HOST'),
+        user=os.getenv('DB_USER'), 
+        password=os.getenv('DB_PASSWORD'),
+        database=os.getenv('DB_NAME'),
+        port=int(os.getenv('MYSQLPORT', 3306)),
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
     )
 
 def init_db_schema():
