@@ -192,14 +192,14 @@ load_dotenv()
 init_db_schema()
 
 # Validate required environment variables
-required_env_vars = [
-    "SECRET_KEY", "ALGORITHM", "ACCESS_TOKEN_EXPIRE_MINUTES",
-    "MYSQLHOST", "MYSQLUSER", "MYSQLPASSWORD", "MYSQLDATABASE"
-]
 # required_env_vars = [
 #     "SECRET_KEY", "ALGORITHM", "ACCESS_TOKEN_EXPIRE_MINUTES",
-#     "DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME"
+#     "MYSQLHOST", "MYSQLUSER", "MYSQLPASSWORD", "MYSQLDATABASE"
 # ]
+required_env_vars = [
+    "SECRET_KEY", "ALGORITHM", "ACCESS_TOKEN_EXPIRE_MINUTES",
+    "DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME"
+]
 missing_vars = [var for var in required_env_vars if not os.getenv(var)]
 if missing_vars:
     raise RuntimeError(f"Missing required environment variables: {', '.join(missing_vars)}")
@@ -299,4 +299,4 @@ async def read_own_items(current_user: dict = Depends(get_current_active_user)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, port=int(os.getenv("PORT", 8000)))
+    uvicorn.run(app, port=int(os.getenv("PORT", 8001)))
